@@ -217,7 +217,7 @@ module.exports = {
                   sourceMap: true,
                   data: '@import "globals";',
                   includePaths: [
-                    path.join(__dirname, 'src/styles'),
+                    path.join(__dirname, 'src/scss'),
                   ]
                 },
               },
