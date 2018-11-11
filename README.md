@@ -1,3 +1,49 @@
+# ReactJS  - TypeScript - Redux
+
+### Create ReactJS App
+```
+npx create-react-app react-ts --scripts-version=react-scripts-ts
+cd react-ts && yarn start
+```
+
+### Structure
+```
+  src/
+    __test__/
+    actions/
+    assets/
+      images/
+      
+    components/
+      Layout/
+      Header/
+      Footer/
+      index.tsx
+      
+    constants/
+      index.tsx
+      
+    modules/
+      Home/
+        Home.tsx
+      index.tsx
+
+    styles/
+    App.tsx
+    index.tsx
+    package.json
+    registerServiceWorker.ts
+```
+
+### React Router Dom
+```
+yarn add react-router-dom
+yarn add @types/react-router-dom --dev
+```
+
+----
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
