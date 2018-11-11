@@ -1,5 +1,5 @@
-import Layout from './Layout/Layout';
-import Spinner from './Spinner/Spinner';
+import Layout from './Layout';
+import Spinner from './Spinner';
 
 export {
   Layout,
