@@ -11,12 +11,12 @@
   z-index: 9999;
 
   .spinner-icon {
+    @include animation(spin, 1s, linear, infinite);
+    @include border-radius(50%);
     border: 5px solid #f3f3f3;
     border-top: 5px solid #3498db;
-    border-radius: 50%;
     width: 70px;
     height: 70px;
-    animation: spin 1s linear infinite;
   }
 
   @keyframes spin {

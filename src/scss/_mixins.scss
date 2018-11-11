@@ -66,10 +66,10 @@
   @include transform(translate(-50%, -50%));
 }
 
-//animate
-@mixin animate($name, $duration: 0.5s, $function: linear) {
-  animation: $name $duration $function;
-  -webkit-animation: $name $duration $function;
+// animation
+@mixin animation($name, $duration: 0.5s, $function: linear, $iteration: 1) {
+  animation: $name $duration $function $iteration;
+  -webkit-animation: $name $duration $function $iteration;
 }
 
 //vertical ellipsis

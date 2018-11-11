@@ -29,8 +29,9 @@ cd react-ts && yarn start
         Home.tsx
       index.tsx
 
-    styles/
+    scss/
       _globals.scss
+      _mixins.scss
       _variables.scss
       index.scss
       Spinner.scss
