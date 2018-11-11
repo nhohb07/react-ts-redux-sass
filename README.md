@@ -174,3 +174,8 @@ yarn add sass-loader node-sass --dev
     ...
   },
   ```
+
+
+### Redux
+`yarn add redux react-redux @types/react-redux`
+
