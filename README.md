@@ -87,6 +87,8 @@ yarn add @types/react-router-dom --dev
     ```
 
 ### SASS Preprocessor
+`yarn add sass-resources-loader --dev`
+
 ```
 yarn add sass-loader node-sass --dev
 ```
@@ -99,24 +101,19 @@ yarn add sass-loader node-sass --dev
   {
     test: /\.scss$/,
     use: [
-      require.resolve('style-loader'),
+      { loader: 'style-loader' },
+      { loader: 'css-loader', options: { sourceMap: true } },
+      { loader: 'sass-loader', options: { sourceMap: true } },
       {
-        loader: "css-loader",
-        options: {
-          sourceMap: true
-        }
-      },
-      {
-        loader: require.resolve('sass-loader'),
+        loader: 'sass-resources-loader',
         options: {
           sourceMap: true,
-          data: '@import "globals";',
-          includePaths: [
-            path.join(__dirname, 'src/styles'),
+          resources: [
+            'src/scss/_globals.scss'
           ]
-        },
-      },
-    ],
+        }
+      }
+    ]
   },
   {
     ...
@@ -132,42 +129,50 @@ yarn add sass-loader node-sass --dev
     ...
   },
   {
-      test: /\.scss$/,
-      loader: ExtractTextPlugin.extract(
-        Object.assign(
-          {
-            fallback: {
-              loader: require.resolve('style-loader'),
+    test: /\.scss$/,
+    loader: ExtractTextPlugin.extract(
+      Object.assign(
+        {
+          fallback: {
+            loader: require.resolve('style-loader'),
+            options: {
+              hmr: false,
+            },
+          },
+          use: [
+            {
+              loader: require.resolve('css-loader'),
               options: {
-                hmr: false,
+                importLoaders: 1,
+                minimize: true,
+                sourceMap: shouldUseSourceMap,
               },
             },
-            use: [
-              {
-                loader: require.resolve('css-loader'),
-                options: {
-                  importLoaders: 1,
-                  minimize: true,
-                  sourceMap: shouldUseSourceMap,
-                },
+            {
+              loader: require.resolve('sass-loader'),
+              options: {
+                sourceMap: shouldUseSourceMap,
+                minimize: true,
               },
-              {
-                loader: require.resolve('sass-loader'),
-                options: {
-                  sourceMap: shouldUseSourceMap,
-                  minimize: true,
-                  data: '@import "globals";',
-                  includePaths: [
-                    path.join(__dirname, 'src/styles')
-                  ]
-                },
-              },
-            ],
-          },
-          extractTextPluginOptions
-        )
-      ),
-    },
+            },
+            {
+              loader: 'sass-resources-loader',
+              options: {
+                sourceMap: shouldUseSourceMap,
+                minimize: true,
+                resources: [
+                  'src/scss/_globals.scss'
+                ]
+              }
+            },
+
+          ],
+        },
+        extractTextPluginOptions
+      )
+    ),
+    // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
+  },
   {
     ...
     exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/, /\.scss$/],
