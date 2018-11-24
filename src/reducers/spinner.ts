@@ -1,4 +1,5 @@
 import { Spinner } from 'src/types/Spinner';
+import { ACTION_SHOW_SPINNER, ACTION_HIDE_SPINNER } from 'src/constants';
 
 const initialState: Spinner = {
   isLoading: false,
@@ -6,13 +7,13 @@ const initialState: Spinner = {
 
 export const spinner = (state: Spinner = initialState, { type }: Spinner) => {
   switch (type) {
-    case 'SHOW_SPINNER':
+    case ACTION_SHOW_SPINNER:
       return {
         ...state,
         isLoading: true,
       };
 
-    case 'HIDE_SPINNER':
+    case ACTION_HIDE_SPINNER:
       return {
         ...state,
         isLoading: false,

@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { spinner } from 'src/actions';
 
+import './Home.scss';
+
 interface Props {
   actions: any,
 }
@@ -23,7 +25,7 @@ class Home extends React.Component<Props> {
   public render() {
     return (
       <Layout>
-        <div>Home page</div>
+        <div className="home-page">Home page</div>
       </Layout>
     );
   }

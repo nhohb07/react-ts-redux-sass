@@ -204,24 +204,19 @@ module.exports = {
           {
             test: /\.scss$/,
             use: [
-              require.resolve('style-loader'),
+              { loader: 'style-loader' },
+              { loader: 'css-loader', options: { sourceMap: true } },
+              { loader: 'sass-loader', options: { sourceMap: true } },
               {
-                loader: "css-loader",
-                options: {
-                  sourceMap: true
-                }
-              },
-              {
-                loader: require.resolve('sass-loader'),
+                loader: 'sass-resources-loader',
                 options: {
                   sourceMap: true,
-                  data: '@import "globals";',
-                  includePaths: [
-                    path.join(__dirname, 'src/scss'),
+                  resources: [
+                    'src/scss/_globals.scss'
                   ]
-                },
-              },
-            ],
+                }
+              }
+            ]
           },
           // "file" loader makes sure those assets get served by WebpackDevServer.
           // When you `import` an asset, you get its (virtual) filename.

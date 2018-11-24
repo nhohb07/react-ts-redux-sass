@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import 'src/scss/Spinner.scss';
 import { StoreState } from 'src/types/StoreState';
 import { Spinner as SpinnerInterface } from 'src/types/Spinner';
+
+import './Spinner.scss';
 
 interface Props {
   spinner: SpinnerInterface,

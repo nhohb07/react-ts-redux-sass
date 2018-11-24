@@ -253,12 +253,19 @@ module.exports = {
                       options: {
                         sourceMap: shouldUseSourceMap,
                         minimize: true,
-                        data: '@import "globals";',
-                        includePaths: [
-                          path.join(__dirname, 'src/scss')
-                        ]
                       },
                     },
+                    {
+                      loader: 'sass-resources-loader',
+                      options: {
+                        sourceMap: shouldUseSourceMap,
+                        minimize: true,
+                        resources: [
+                          'src/scss/_globals.scss'
+                        ]
+                      }
+                    },
+
                   ],
                 },
                 extractTextPluginOptions
