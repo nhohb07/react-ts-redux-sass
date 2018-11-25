@@ -20,7 +20,7 @@ class Home extends React.Component<Props> {
     actions.spinner.show();
 
     const request = new Request();
-    const users = await request.get('/');
+    const users = await request.get('/comments', { test: 123, test2: 'abc' });
     console.log(users);
 
     actions.spinner.hide();

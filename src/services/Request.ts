@@ -1,5 +1,6 @@
-import { startsWith, endsWith, keys } from 'lodash';
+import { startsWith, endsWith, keys, isEmpty } from 'lodash';
 import { RequestMethod, LocalStorage } from 'src/constants';
+import { RequestErrorMessage } from 'src/constants/messages';
 
 export interface RequestOptions {
   isFormData?: boolean,
@@ -59,6 +60,10 @@ export default class Request {
   }
 
   private getParams(): any {
+    if (isEmpty(this.params)) {
+      return null;
+    }
+
     if ([RequestMethod.GET, RequestMethod.HEAD].indexOf(this.method) > -1) {
       const urlParams: string = keys(this.params).map((key: string) => `${key}=${this.params[key]}`).join('&');
       this.endpoint = `${this.endpoint}?${urlParams}`;
@@ -85,9 +90,10 @@ export default class Request {
 
     try {
       const fetchResponse: any = await fetch(this.getEndpoint(), request);
+      const statusCode: number = fetchResponse.status;
 
-      if (fetchResponse.status !== 200) {
-        throw new Error(fetchResponse.statusText);
+      if (statusCode !== 200) {
+        throw new Error(fetchResponse.statusText || RequestErrorMessage[statusCode]);
       }
 
       // Get json data
