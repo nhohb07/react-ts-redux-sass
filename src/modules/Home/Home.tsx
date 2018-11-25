@@ -2,28 +2,26 @@ import * as React from 'react';
 import { Layout } from 'src/components';
 import Request from 'src/services/Request';
 
-// Redux
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { spinner } from 'src/actions';
+import Redux from 'src/services/Redux';
 
 import './Home.scss';
 
 interface Props {
-  actions: any,
+  spinnerActions: any,
 }
 
 class Home extends React.Component<Props> {
   public async componentDidMount() {
-    const { actions } = this.props;
+    const { spinnerActions } = this.props;
+    console.log(this.props)
 
-    actions.spinner.show();
+    spinnerActions.show();
 
     const request = new Request();
     const users = await request.get('/comments', { test: 123, test2: 'abc' });
     console.log(users);
 
-    actions.spinner.hide();
+    spinnerActions.hide();
   }
 
   public render() {
@@ -35,10 +33,4 @@ class Home extends React.Component<Props> {
   }
 }
 
-const mapActionToProps = (dispatch: any) => ({
-  actions: {
-    spinner: bindActionCreators(spinner, dispatch),
-  },
-});
-
-export default connect(null, mapActionToProps)(Home);
+export default Redux.connect(['spinner'], ['spinner'])(Home);
