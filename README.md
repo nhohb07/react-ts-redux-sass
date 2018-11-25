@@ -87,11 +87,8 @@ yarn add @types/react-router-dom --dev
     ```
 
 ### SASS Preprocessor
-`yarn add sass-resources-loader --dev`
+`yarn add sass-loader node-sass sass-resources-loader --dev`
 
-```
-yarn add sass-loader node-sass --dev
-```
 - Edit file `config/webpack.config.dev.js`
   ```js
   {

@@ -1,6 +1,6 @@
 import * as React from 'react';
-
 import { Layout } from 'src/components';
+import Request from 'src/services/Request';
 
 // Redux
 import { connect } from 'react-redux';
@@ -14,12 +14,16 @@ interface Props {
 }
 
 class Home extends React.Component<Props> {
-  public componentDidMount() {
+  public async componentDidMount() {
     const { actions } = this.props;
 
     actions.spinner.show();
 
-    setTimeout(() => actions.spinner.hide(), 2000);
+    const request = new Request();
+    const users = await request.get('/');
+    console.log(users);
+
+    actions.spinner.hide();
   }
 
   public render() {
