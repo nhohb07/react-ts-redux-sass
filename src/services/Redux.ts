@@ -9,34 +9,57 @@ import { StoreState } from 'src/types/StoreState';
 import store from 'src/store';
 
 class Redux {
-  public getGlobalStates(states: Array<string> | null, globalStates: StoreState) {
-    if (!states) {
-      return null;
+  /**
+   * Get global state and map to props
+   * @param neededStates Array<string> list of needed state to map to props
+   */
+  public getGlobalStates(neededStates: Array<string> | null) {
+    if (!neededStates) {
+      return {};
     }
 
-    return pick(globalStates, states);
+    // get all store states
+    const states: StoreState = store.getState();
+    console.log('s', pick(states, neededStates))
+
+    // Return all states from neededStates list
+    return pick(states, neededStates);
   }
 
-  public getGlobalActions(actions: Array<string> | null) {
-    if (!actions) {
-      return null;
+  /**
+   * Get global actions and map to props
+   * @param neededActions Array<string> list of needed actions to map to props
+   */
+  public getGlobalActions(neededActions: Array<string> | null | undefined) {
+    if (!neededActions) {
+      return {};
     }
 
+    const result: any = {};
     const { dispatch } = store;
 
-    const result: any = {};
+    for (let actionName of neededActions) {
+      const actions = globalActions[`${actionName}Actions`];
 
-    for (let actionName of actions) {
-      result[`${actionName}Actions`] = bindActionCreators(globalActions[actionName], dispatch)
+      if (!actions) {
+        continue;
+      }
+
+      result[`${actionName}Actions`] = bindActionCreators(actions, dispatch)
     }
 
     return result;
   }
 
-  public connect(states: Array<string> | null, actions: Array<string> | null) {
+  /**
+   * Get redux.connect with global states and global actions
+   * @param neededStates Array<string> list of needed states to map to props
+   * @param neededActions Array<string> list of needed actions to map to props
+   */
+  public connect(neededStates: Array<string> | null, neededActions?: Array<string> | null) {
     return reduxConnect(
-      (globalStates: StoreState) => this.getGlobalStates(states, globalStates),
-      () => this.getGlobalActions(actions)
+      neededStates ? () => this.getGlobalStates(neededStates) : null,
+      neededActions ? () => this.getGlobalActions(neededActions) : null
     );
   }
 }

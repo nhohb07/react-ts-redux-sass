@@ -1,20 +1,18 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-
-import { StoreState } from 'src/types/StoreState';
-import { Spinner as SpinnerInterface } from 'src/types/Spinner';
+import Redux from 'src/services/Redux';
+import { RequestState } from 'src/types/Request';
 
 import './Spinner.scss';
 
 interface Props {
-  spinner: SpinnerInterface,
+  request?: RequestState,
 }
 
 class Spinner extends React.Component<Props> {
   render() {
-    const { spinner } = this.props;
+    const { request = { isLoading: false, hideSpinner: false } } = this.props;
 
-    if (!spinner.isLoading) {
+    if (!request.isLoading || request.hideSpinner) {
       return null;
     }
 
@@ -26,8 +24,4 @@ class Spinner extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = ({ spinner }: StoreState) => ({
-  spinner,
-});
-
-export default connect(mapStateToProps)(Spinner);
+export default Redux.connect(['request'])(Spinner);

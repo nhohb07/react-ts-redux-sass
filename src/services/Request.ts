@@ -1,6 +1,8 @@
 import { startsWith, endsWith, keys, isEmpty } from 'lodash';
 import { RequestMethod, LocalStorage } from 'src/constants';
 import { RequestErrorMessage } from 'src/constants/messages';
+import { RequestActions } from 'src/types/Request';
+import Redux from './Redux';
 
 export interface RequestOptions {
   isFormData?: boolean,
@@ -78,6 +80,10 @@ export default class Request {
   }
 
   private async request(): Promise<Response> {
+    const globalActions: any = Redux.getGlobalActions(['request']);
+    const requestActions: RequestActions = globalActions.requestActions;
+    requestActions.start();
+
     const request: any = {
       method: this.method,
       headers: this.headers,
@@ -104,6 +110,8 @@ export default class Request {
 
       response.error = error.message;
     } finally {
+      requestActions.end();
+
       return response;
     }
   }

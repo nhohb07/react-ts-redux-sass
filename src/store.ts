@@ -2,11 +2,11 @@ import { createStore, combineReducers } from 'redux';
 import { StoreState } from './types/StoreState';
 
 import {
-  spinner
+  requestReducer
 } from './reducers';
 
 const appReducer = combineReducers<StoreState>({
-  spinner,
+  request: requestReducer
 });
 
 export default createStore(appReducer);

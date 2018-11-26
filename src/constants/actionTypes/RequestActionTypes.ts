@@ -1,0 +1,4 @@
+export const REQUEST_ACTION_TYPES = {
+  START: 'REQUEST_START',
+  END: 'REQUEST_END',
+};
