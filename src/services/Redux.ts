@@ -20,7 +20,6 @@ class Redux {
 
     // get all store states
     const states: StoreState = store.getState();
-    console.log('s', pick(states, neededStates))
 
     // Return all states from neededStates list
     return pick(states, neededStates);
