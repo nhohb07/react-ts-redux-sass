@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Redux from 'src/services/Redux';
+import Redux from 'src/helpers/Redux';
 import { RequestState } from 'src/types/Request';
 
 import './Spinner.scss';

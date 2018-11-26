@@ -1,8 +1,10 @@
+import { injectable } from 'inversify';
+
 import { startsWith, endsWith, keys, isEmpty } from 'lodash';
 import { RequestMethod, LocalStorage } from 'src/constants';
 import { RequestErrorMessage } from 'src/constants/messages';
 import { RequestActions } from 'src/types/Request';
-import Redux from './Redux';
+import Redux from 'src/helpers/Redux';
 
 export interface RequestOptions {
   isFormData?: boolean,
@@ -17,6 +19,7 @@ export interface Response {
   error?: any,
 }
 
+@injectable()
 export default class Request {
   private endpoint: string;
   private method: RequestMethod;
